@@ -48,6 +48,10 @@ class GraphAlgorithms {
   WayBetweenTwo GetShortestPathBetweenVertices(const Graph &graph, int vertex1,
                                                int vertex2) const;
 
+  /// @brief Finds paths between all pairs of vertices using the Floyd-Warshell
+  /// algorithm
+  /// @return an empty matrix if the graph is not loaded or there are no
+  /// vertices
   mtlc::Matrix<EdgeWeightType> GetShortestPathsBetweenAllVertices(
       const Graph &graph) const;
 
@@ -55,6 +59,12 @@ class GraphAlgorithms {
   /// @return A 0 by 0 matrix if the graph is unconnected or empty
   mtlc::Matrix<EdgeWeightType> GetLeastSpanningTree(const Graph &graph) const;
 
+  /// @brief Solves the traveling salesman problem using various algorithms. In
+  /// this implementation only ant.
+  /// @param type of algorithm
+  /// @param rand optional parameter. if not 0 - disables randomness
+  /// @return an empty structure with distance -2 if the problem cannot be
+  /// solved
   TsmResult SolveTravelingSalesmanProblem(const Graph &graph,
                                           SalesmanAlgorithms type,
                                           int rand = 0) const;
