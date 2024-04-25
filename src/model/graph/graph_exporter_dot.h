@@ -5,8 +5,8 @@
 
 #include <string>
 
+#include "graph.h"
 #include "graph_exporter.h"
-#include "s21_graph.h"
 
 namespace graph_cb {
 

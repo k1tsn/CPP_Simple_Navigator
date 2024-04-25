@@ -2,12 +2,13 @@
 #define SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_GRAPH_ALGORITHMS_H_
 
 #include <list>
+#include <map>
 #include <queue>
 #include <set>
 #include <stack>
 #include <vector>
 
-#include "../s21_graph/s21_graph.h"
+#include "../graph/graph.h"
 #include "matrix.h"
 
 namespace graph_cb {
@@ -55,7 +56,8 @@ class GraphAlgorithms {
   mtlc::Matrix<EdgeWeightType> GetLeastSpanningTree(const Graph &graph) const;
 
   TsmResult SolveTravelingSalesmanProblem(const Graph &graph,
-                                          SalesmanAlgorithms type) const;
+                                          SalesmanAlgorithms type,
+                                          int rand = 0) const;
 
  private:
   struct WeightPheromone {
@@ -140,7 +142,8 @@ class GraphAlgorithms {
   //                              Solve Salesman
   // --------------------------------------------------------------------------
 
-  TsmResult SolveTravelingSalesmanProblemAnt(const Graph &graph) const;
+  TsmResult SolveTravelingSalesmanProblemAnt(const Graph &graph,
+                                             int rand) const;
 
   mtlc::Matrix<WeightPheromone> CreateAdjacencyMatrixWeightPheromone(
       const Graph &graph) const;
@@ -149,11 +152,11 @@ class GraphAlgorithms {
 
   void MakeWay(const Graph &graph, std::vector<Ant>::iterator &ant,
                const mtlc::Matrix<WeightPheromone> &weight_pheromone,
-               size_t count_vertices) const;
+               size_t count_vertices, int rand) const;
 
   VertexProbility FindNextVertex(
       const Graph &graph, Vertex start, std::vector<Ant>::iterator &ant,
-      const mtlc::Matrix<WeightPheromone> &weight_pheromone) const;
+      const mtlc::Matrix<WeightPheromone> &weight_pheromone, int rand) const;
 
   std::vector<VertexProbility> GetAntsWishes(
       const Graph &graph, Vertex start, std::vector<Ant>::iterator &ant,

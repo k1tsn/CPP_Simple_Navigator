@@ -12,9 +12,9 @@
 #include "graph_exporter.h"
 #include "graph_imp.h"
 #include "matrix.h"
-#include "token_parser.h"
+#include "token.h"
 
-namespace s21 {
+namespace graph_cb {
 
 class Graph {
  public:
@@ -122,6 +122,6 @@ class Graph {
   GraphImp* graph_imp_;
 };
 
-}  // namespace s21
+}  // namespace graph_cb
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_H_

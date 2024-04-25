@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace s21 {
+namespace graph_cb {
 
 Model::Model() {}
 
@@ -51,8 +51,8 @@ mtlc::Matrix<Graph::EdgeWeightType> Model::GetLeastSpanningTree() {
 }
 
 GraphAlgorithms::TsmResult Model::SolveTravelingSalesmanProblem(
-    SalesmanAlgorithms type) {
-  return graph_algoritms_.SolveTravelingSalesmanProblem(graph_, type);
+    SalesmanAlgorithms type, int rand) {
+  return graph_algoritms_.SolveTravelingSalesmanProblem(graph_, type, rand);
 }
 
-}  // namespace s21
+}  // namespace graph_cb

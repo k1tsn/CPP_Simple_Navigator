@@ -3,14 +3,14 @@
 #include <string>
 #include <vector>
 
-#include "../../../src/model/s21_graph/s21_graph.h"
-#include "../../../src/model/s21_graph_algorithms/s21_graph_algorithms.h"
+#include "../../../src/model/graph/graph.h"
+#include "../../../src/model/graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
 struct SpanningTreeDataTest {
   std::string filename_;
   size_t size_;
-  std::vector<s21::Graph::EdgeWeightType> edges_;
+  std::vector<graph_cb::Graph::EdgeWeightType> edges_;
 };
 
 class SpanningTreeTest : public testing::TestWithParam<int> {
@@ -809,12 +809,12 @@ TEST_P(SpanningTreeTest, Common) {
   int num_test = this->GetParam();
   SpanningTreeDataTest& data = SpanningTreeTest::test_data_[num_test];
 
-  s21::Graph graph;
+  graph_cb::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  s21::GraphAlgorithms alg;
+  graph_cb::GraphAlgorithms alg;
 
-  mtlc::Matrix<s21::Graph::EdgeWeightType> spanning_tree =
+  mtlc::Matrix<graph_cb::Graph::EdgeWeightType> spanning_tree =
       alg.GetLeastSpanningTree(graph);
 
   EXPECT_EQ(spanning_tree.GetCols(), data.size_);

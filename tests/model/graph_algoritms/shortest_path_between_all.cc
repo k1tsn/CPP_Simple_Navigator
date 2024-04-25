@@ -3,14 +3,14 @@
 #include <string>
 #include <vector>
 
-#include "../../../src/model/s21_graph/s21_graph.h"
-#include "../../../src/model/s21_graph_algorithms/s21_graph_algorithms.h"
+#include "../../../src/model/graph/graph.h"
+#include "../../../src/model/graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
 struct ShortestPathBetweenAllDataTest {
   std::string filename_;
   size_t matrix_size_;
-  std::vector<s21::Graph::EdgeWeightType> edges_;
+  std::vector<graph_cb::Graph::EdgeWeightType> edges_;
 };
 
 class ShortestPathBetweenAllTest : public testing::TestWithParam<int> {
@@ -306,12 +306,12 @@ TEST_P(ShortestPathBetweenAllTest, Common) {
   ShortestPathBetweenAllDataTest& data =
       ShortestPathBetweenAllTest::test_data_[num_test];
 
-  s21::Graph graph;
+  graph_cb::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  s21::GraphAlgorithms alg;
+  graph_cb::GraphAlgorithms alg;
 
-  mtlc::Matrix<s21::Graph::EdgeWeightType> adjancicy_matrix =
+  mtlc::Matrix<graph_cb::Graph::EdgeWeightType> adjancicy_matrix =
       alg.GetShortestPathsBetweenAllVertices(graph);
 
   EXPECT_EQ(adjancicy_matrix.GetCols(), data.matrix_size_);

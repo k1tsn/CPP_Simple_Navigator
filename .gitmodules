@@ -1,0 +1,6 @@
+[submodule "3d_party/mtlc"]
+	path = 3d_party/mtlc
+	url = https://github.com/carlynmy/mtlc.git
+[submodule "3d_party/token_parser"]
+	path = 3d_party/token_parser
+	url = https://github.com/carlynmy/token_parser.git

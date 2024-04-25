@@ -3,14 +3,14 @@
 #include <string>
 #include <vector>
 
-#include "../../../src/model/s21_graph/s21_graph.h"
-#include "../../../src/model/s21_graph_algorithms/s21_graph_algorithms.h"
+#include "../../../src/model/graph/graph.h"
+#include "../../../src/model/graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
 struct BFSDataTest {
   std::string filename_;
-  s21::Graph::Vertex start_vertex_;
-  std::vector<s21::Graph::Vertex> vertices_;
+  graph_cb::Graph::Vertex start_vertex_;
+  std::vector<graph_cb::Graph::Vertex> vertices_;
 };
 
 class BFSTest : public testing::TestWithParam<int> {
@@ -199,12 +199,12 @@ TEST_P(BFSTest, Common) {
   int num_test = this->GetParam();
   BFSDataTest& data = BFSTest::test_data_[num_test];
 
-  s21::Graph graph;
+  graph_cb::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  s21::GraphAlgorithms alg;
+  graph_cb::GraphAlgorithms alg;
 
-  std::vector<s21::Graph::Vertex> vertices =
+  std::vector<graph_cb::Graph::Vertex> vertices =
       alg.BreadthFirstSearch(graph, data.start_vertex_);
 
   EXPECT_EQ(vertices.size(), data.vertices_.size());

@@ -8,7 +8,7 @@
 #include "graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
-namespace s21 {
+namespace graph_cb {
 
 class Model {
  public:
@@ -45,13 +45,14 @@ class Model {
 
   mtlc::Matrix<Graph::EdgeWeightType> GetLeastSpanningTree();
 
-  TsmResult SolveTravelingSalesmanProblem(SalesmanAlgorithms type);
+  TsmResult SolveTravelingSalesmanProblem(SalesmanAlgorithms type,
+                                          int rand = 0);
 
  private:
   Graph graph_;
   GraphAlgorithms graph_algoritms_;
 };
 
-}  // namespace s21
+}  // namespace graph_cb
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_MODEL_H_

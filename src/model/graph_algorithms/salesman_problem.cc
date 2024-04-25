@@ -1,28 +1,28 @@
 #include <cmath>
 #include <ctime>
 
-#include "s21_graph_algorithms.h"
+#include "graph_algorithms.h"
 
 namespace graph_cb {
 
 GraphAlgorithms::TsmResult GraphAlgorithms::SolveTravelingSalesmanProblemAnt(
-    const Graph &graph) const {
+    const Graph &graph, int rand) const {
   mtlc::Matrix<WeightPheromone> weight_pheromone =
       CreateAdjacencyMatrixWeightPheromone(graph);
 
-  TsmResult res = {{}, -1};
+  TsmResult res = {{}, kWayNotFound};
 
   std::vector<Ant> ants = GetAnts(graph);
   size_t count_vertices = ants.size();
 
   for (size_t i = 0; i < count_vertices; ++i) {
     for (auto iter = ants.begin(); iter != ants.end(); ++iter) {
-      MakeWay(graph, iter, weight_pheromone, count_vertices);
+      MakeWay(graph, iter, weight_pheromone, count_vertices, rand);
     }
     TsmResult best_path =
         UpdatePheromoneIntensity(graph, ants, weight_pheromone);
 
-    if (res.distance > best_path.distance || res.distance == -1) {
+    if (res.distance > best_path.distance || res.distance == kWayNotFound) {
       res.vertices = best_path.vertices;
       res.distance = best_path.distance;
     }
@@ -69,12 +69,13 @@ std::vector<GraphAlgorithms::Ant> GraphAlgorithms::GetAnts(
 void GraphAlgorithms::MakeWay(
     const Graph &graph, std::vector<Ant>::iterator &ant,
     const mtlc::Matrix<WeightPheromone> &weight_pheromone,
-    size_t count_vertices) const {
+    size_t count_vertices, int rand) const {
   for (size_t i = 0; i < count_vertices; ++i) {
     if (i == count_vertices - 1)
       ant->unvisited_vertices_.insert(ant->visited_vertices_.front());
     Vertex start = ant->visited_vertices_.back();
-    VertexProbility end = FindNextVertex(graph, start, ant, weight_pheromone);
+    VertexProbility end =
+        FindNextVertex(graph, start, ant, weight_pheromone, rand);
     if (!IsThereVertex(end.vertex_)) break;
     ant->visited_vertices_.push_back(end.vertex_);
     ant->unvisited_vertices_.erase(ant->unvisited_vertices_.find(end.vertex_));
@@ -84,7 +85,7 @@ void GraphAlgorithms::MakeWay(
 
 GraphAlgorithms::VertexProbility GraphAlgorithms::FindNextVertex(
     const Graph &graph, Vertex start, std::vector<Ant>::iterator &ant,
-    const mtlc::Matrix<WeightPheromone> &weight_pheromone) const {
+    const mtlc::Matrix<WeightPheromone> &weight_pheromone, int rand_num) const {
   std::vector<VertexProbility> ants_wishes =
       GetAntsWishes(graph, start, ant, weight_pheromone);
 
@@ -100,8 +101,9 @@ GraphAlgorithms::VertexProbility GraphAlgorithms::FindNextVertex(
     if (i > 0) ants_wishes[i].probility_ += ants_wishes[i - 1].probility_;
   }
 
-  // std::srand(std::time(nullptr));
-  std::srand(1);
+  std::srand(std::time(nullptr));
+  if (rand_num != 0) std::srand(rand_num);
+
   float next_probility = rand() % 100 / 100.0;
   return FindNearVertex(ants_wishes, next_probility);
 }

@@ -3,14 +3,15 @@
 #include <string>
 #include <vector>
 
-#include "../../../src/model/s21_graph/s21_graph.h"
-#include "../../../src/model/s21_graph_algorithms/s21_graph_algorithms.h"
+#include "../../../src/model/graph/graph.h"
+#include "../../../src/model/graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
 struct SolveSalesmanDataTest {
   std::string filename_;
   int path_;
-  s21::GraphAlgorithms::SalesmanAlgorithms type_;
+  graph_cb::GraphAlgorithms::SalesmanAlgorithms type_;
+  int rand_num_;
 };
 
 class SolveSalesmanTest : public testing::TestWithParam<int> {
@@ -23,13 +24,13 @@ int SolveSalesmanTest::count_ = 3;
 std::vector<SolveSalesmanDataTest> SolveSalesmanTest::test_data_ = {
     SolveSalesmanDataTest{
         "graphs/10_salesman.txt", 49,
-        s21::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm},
+        graph_cb::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm, 1},
     SolveSalesmanDataTest{
         "graphs/11_salesman.txt", 45,
-        s21::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm},
+        graph_cb::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm, 1},
     SolveSalesmanDataTest{
         "graphs/12.txt", 24,
-        s21::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm}};
+        graph_cb::GraphAlgorithms::SalesmanAlgorithms::kAntAlgorithm, 1}};
 
 INSTANTIATE_TEST_SUITE_P(solve_salesman, SolveSalesmanTest,
                          testing::Range(0, SolveSalesmanTest::count_));
@@ -38,13 +39,13 @@ TEST_P(SolveSalesmanTest, Common) {
   int num_test = this->GetParam();
   SolveSalesmanDataTest& data = SolveSalesmanTest::test_data_[num_test];
 
-  s21::Graph graph;
+  graph_cb::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  s21::GraphAlgorithms alg;
+  graph_cb::GraphAlgorithms alg;
 
-  s21::GraphAlgorithms::TsmResult res =
-      alg.SolveTravelingSalesmanProblem(graph, data.type_);
+  graph_cb::GraphAlgorithms::TsmResult res =
+      alg.SolveTravelingSalesmanProblem(graph, data.type_, data.rand_num_);
 
   EXPECT_EQ(res.distance, data.path_);
 }

@@ -1,6 +1,6 @@
 // graph algorithms
 
-#include "s21_graph_algorithms.h"
+#include "graph_algorithms.h"
 
 #include <limits>
 #include <list>
@@ -10,7 +10,7 @@
 #include <stack>
 #include <vector>
 
-#include "../s21_graph/s21_graph.h"
+#include "../graph/graph.h"
 
 namespace graph_cb {
 
@@ -166,10 +166,10 @@ GraphAlgorithms::GetLeastSpanningTree(const Graph &graph) const {
 }
 
 GraphAlgorithms::TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(
-    const Graph &graph, SalesmanAlgorithms type) const {
+    const Graph &graph, SalesmanAlgorithms type, int rand) const {
   switch (type) {
     case SalesmanAlgorithms::kAntAlgorithm:
-      return SolveTravelingSalesmanProblemAnt(graph);
+      return SolveTravelingSalesmanProblemAnt(graph, rand);
 
     default:
       break;

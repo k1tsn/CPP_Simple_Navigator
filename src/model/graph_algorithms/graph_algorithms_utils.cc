@@ -6,8 +6,8 @@
 #include <stack>
 #include <vector>
 
-#include "../s21_graph/s21_graph.h"
-#include "s21_graph_algorithms.h"
+#include "../graph/graph.h"
+#include "graph_algorithms.h"
 
 namespace graph_cb {
 

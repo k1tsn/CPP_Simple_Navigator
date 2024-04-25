@@ -43,7 +43,6 @@ class View {
   void GetShortestPathsBetweenAllVertices();
   void GetLeastSpanningTree();
   void SolveTravelingSalesmanProblem();
-  void CompareSalesmanProblem();
 
   void PrintMatrix(const mtlc::Matrix<Controller::EdgeWeightType>& matrix);
 

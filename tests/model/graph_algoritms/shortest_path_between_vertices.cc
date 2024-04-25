@@ -3,15 +3,15 @@
 #include <string>
 #include <vector>
 
-#include "../../../src/model/s21_graph/s21_graph.h"
-#include "../../../src/model/s21_graph_algorithms/s21_graph_algorithms.h"
+#include "../../../src/model/graph/graph.h"
+#include "../../../src/model/graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
 struct ShortestPathBetweenVerticesDataTest {
   std::string filename_;
-  s21::Graph::Vertex vertex_1_;
-  s21::Graph::Vertex vertex_2_;
-  s21::GraphAlgorithms::WayBetweenTwo way_;
+  graph_cb::Graph::Vertex vertex_1_;
+  graph_cb::Graph::Vertex vertex_2_;
+  graph_cb::GraphAlgorithms::WayBetweenTwo way_;
 };
 
 class ShortestPathBetweenVerticesTest : public testing::TestWithParam<int> {
@@ -41,7 +41,10 @@ std::vector<ShortestPathBetweenVerticesDataTest>
             3,
             {{30, 28, 29, 33, 23, 21, 9, 10, 2, 19, 3}, 124}},
         ShortestPathBetweenVerticesDataTest{
-            "graphs/7.txt", 11, 47, {{}, s21::GraphAlgorithms::kWayNotFound}},
+            "graphs/7.txt",
+            11,
+            47,
+            {{}, graph_cb::GraphAlgorithms::kWayNotFound}},
         ShortestPathBetweenVerticesDataTest{
             "graphs/7.txt",
             40,
@@ -61,12 +64,12 @@ TEST_P(ShortestPathBetweenVerticesTest, Common) {
   ShortestPathBetweenVerticesDataTest& data =
       ShortestPathBetweenVerticesTest::test_data_[num_test];
 
-  s21::Graph graph;
+  graph_cb::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  s21::GraphAlgorithms alg;
+  graph_cb::GraphAlgorithms alg;
 
-  s21::GraphAlgorithms::WayBetweenTwo way =
+  graph_cb::GraphAlgorithms::WayBetweenTwo way =
       alg.GetShortestPathBetweenVertices(graph, data.vertex_1_, data.vertex_2_);
 
   EXPECT_EQ(way.distance, data.way_.distance);

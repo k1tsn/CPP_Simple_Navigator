@@ -219,17 +219,16 @@ void View::SolveTravelingSalesmanProblem() {
   }
 
   TsmResult res = controller_->SolveTravelingSalesmanProblem(type);
+  if (res.distance == GraphAlgorithms::kWayNotFound) {
+    std::cout << "Задача не может быть решена." << std::endl;
+    return;
+  }
+
   std::cout << "Расстояние: " << res.distance << std::endl;
   for (size_t i = 0; i < res.vertices.size(); ++i) {
     std::cout << res.vertices[i] << " ";
   }
   std::cout << std::endl;
-}
-
-void View::CompareSalesmanProblem() {
-  std::cout << "Сколько раз нужно решить задачу? Введите число: ";
-  int count;
-  std::cin >> count;
 }
 
 void View::PrintMatrix(const mtlc::Matrix<Controller::EdgeWeightType>& matrix) {

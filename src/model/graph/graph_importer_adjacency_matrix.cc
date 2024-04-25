@@ -7,9 +7,9 @@
 #include <iostream>
 #include <string>
 
+#include "graph.h"
 #include "graph_importer.h"
-#include "s21_graph.h"
-#include "token_parser.h"
+#include "string_parser.h"
 
 namespace graph_cb {
 
@@ -27,7 +27,7 @@ GraphImporterAdjacencyMatrix::ReturnCode GraphImporterAdjacencyMatrix::Import(
 
   TokenParser::Settings settings;
   settings.SetSpaceChars(settings.GetSpaceChars() + ",");
-  TokenParser::Parser parser(settings);
+  TokenParser::StringParser parser(settings);
 
   std::string str;
   if (!std::getline(file, str)) return InvalidFileCatch(graph);
