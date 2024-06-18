@@ -3,10 +3,10 @@
 #include "view/view.h"
 
 int main() {
-  graph_cb::Model* model = new graph_cb::Model();
-  graph_cb::Controller* controller = new graph_cb::ControllerDefault(model);
-  graph_cb::View v(controller);
-  v.Show();
+  graph::Model* model = new graph::Model();
+  graph::Controller* controller = new graph::ControllerDefault(model);
+  graph::View view(controller);
+  view.Show();
 
   delete model;
   delete controller;

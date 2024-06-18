@@ -5,7 +5,7 @@
 
 #include "matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 View::View(Controller* controller) {
   controller_ = controller;
@@ -173,16 +173,12 @@ void View::GetShortestPathBetweenVertices() {
   std::cout << "Введите две вершины: " << std::endl;
   int vertex1, vertex2;
   std::cin >> vertex1 >> vertex2;
-  WayBetweenTwo way =
+  graph::Controller::EdgeWeightType path =
       controller_->GetShortestPathBetweenVertices(vertex1, vertex2);
-  if (way.distance < 0)
+  if (path < 0)
     std::cout << "Граф не загружен или точки не найдены в графе" << std::endl;
   else {
-    std::cout << "Длина кратчайщего пути: " << way.distance << std::endl;
-    std::cout << "Путь: ";
-    for (size_t i = 0; i < way.vertices.size(); ++i)
-      std::cout << way.vertices[i] << " ";
-    std::cout << std::endl;
+    std::cout << "Длина кратчайщего пути: " << path << std::endl;
   }
 
   std::cout << std::endl;
@@ -203,22 +199,7 @@ void View::GetLeastSpanningTree() {
 }
 
 void View::SolveTravelingSalesmanProblem() {
-  std::cout << "Выберите алгоритм:" << std::endl;
-  std::cout << "1. Муравьиный алгоритм." << std::endl;
-  int choise;
-  SalesmanType type;
-  std::cin >> choise;
-  switch (choise - 1) {
-    case SalesmanType::kAntAlgorithm:
-      type = SalesmanType::kAntAlgorithm;
-      break;
-
-    default:
-      std::cout << "Неизвестная цифра. Попробуйте снова." << std::endl;
-      return;
-  }
-
-  TsmResult res = controller_->SolveTravelingSalesmanProblem(type);
+  TsmResult res = controller_->SolveTravelingSalesmanProblem();
   if (res.distance == GraphAlgorithms::kWayNotFound) {
     std::cout << "Задача не может быть решена." << std::endl;
     return;
@@ -240,4 +221,4 @@ void View::PrintMatrix(const mtlc::Matrix<Controller::EdgeWeightType>& matrix) {
   }
 }
 
-}  // namespace graph_cb
+}  // namespace graph

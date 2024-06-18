@@ -6,15 +6,13 @@
 #include "../controller/controller.h"
 #include "matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 class View {
  public:
   using Vertex = Controller::Vertex;
   using ReturnCode = Controller::ReturnCode;
   using TsmResult = Controller::TsmResult;
-  using WayBetweenTwo = Controller::WayBetweenTwo;
-  using SalesmanType = Controller::SalesmanAlgorithms;
 
   View(Controller* controller);
   virtual ~View();
@@ -50,6 +48,6 @@ class View {
   Controller* controller_;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_VIEW_VIEW_H_

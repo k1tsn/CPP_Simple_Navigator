@@ -2,7 +2,7 @@
 
 #include "graph_edge.h"
 
-namespace graph_cb {
+namespace graph {
 
 GraphEdge::GraphEdge() {}
 
@@ -21,4 +21,4 @@ GraphEdge::WeightType GraphEdge::GetWeight() const { return weight_; }
 
 GraphEdge::Vertex GraphEdge::GetDistVertex() const { return dist_vertex_; }
 
-}  // namespace graph_cb
+}  // namespace graph

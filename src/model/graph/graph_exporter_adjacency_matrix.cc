@@ -8,7 +8,7 @@
 #include "graph.h"
 #include "graph_exporter.h"
 
-namespace graph_cb {
+namespace graph {
 
 GraphExporterAdjacencyMatrix::GraphExporterAdjacencyMatrix()
     : GraphExporter() {}
@@ -26,7 +26,6 @@ GraphExporterAdjacencyMatrix::ReturnCode GraphExporterAdjacencyMatrix::Export(
   for (auto i : vertexes) {
     Graph::Edges edges = graph.GetEdges(i);
     for (auto j : vertexes) {
-      // Graph::EdgeWeightType weight = GetWeight(edges, j);
       file << GetWeight(edges, j) << " ";
     }
     file << "\n";
@@ -44,4 +43,4 @@ Graph::EdgeWeightType GraphExporterAdjacencyMatrix::GetWeight(
   return weight;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

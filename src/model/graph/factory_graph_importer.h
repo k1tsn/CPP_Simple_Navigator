@@ -5,12 +5,11 @@
 
 #include "graph_importer.h"
 
-namespace graph_cb {
+namespace graph {
 
 class FactoryGraphImporter {
  public:
   enum ImportType {
-    kTypeDotFormat,
     kTypeAdjacencyMatrix,
   };
 
@@ -22,6 +21,6 @@ class FactoryGraphImporter {
   virtual GraphImporter* Create(ImportType type);
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_FACTORY_GRAPH_IMPORTER

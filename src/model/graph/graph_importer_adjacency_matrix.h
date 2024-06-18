@@ -8,7 +8,7 @@
 #include "graph.h"
 #include "graph_importer.h"
 
-namespace graph_cb {
+namespace graph {
 
 class GraphImporterAdjacencyMatrix : public GraphImporter {
  public:
@@ -28,6 +28,6 @@ class GraphImporterAdjacencyMatrix : public GraphImporter {
   ReturnCode InvalidFileCatch(Graph& graph);
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_IMPORTER_ADJACENCY_MATRIX

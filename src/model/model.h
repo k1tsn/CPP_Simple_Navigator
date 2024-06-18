@@ -8,15 +8,13 @@
 #include "graph_algorithms/graph_algorithms.h"
 #include "matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 class Model {
  public:
   using Vertex = GraphAlgorithms::Vertex;
   using EdgeWeightType = GraphEdge::WeightType;
   using TsmResult = GraphAlgorithms::TsmResult;
-  using WayBetweenTwo = GraphAlgorithms::WayBetweenTwo;
-  using SalesmanAlgorithms = GraphAlgorithms::SalesmanAlgorithms;
 
   enum ReturnCode {
     kCodeOk,
@@ -39,20 +37,19 @@ class Model {
 
   std::vector<Vertex> BreadthFirstSearch(int start_vertex);
 
-  WayBetweenTwo GetShortestPathBetweenVertices(int vertex1, int vertex2);
+  EdgeWeightType GetShortestPathBetweenVertices(int vertex1, int vertex2);
 
   mtlc::Matrix<Graph::EdgeWeightType> GetShortestPathsBetweenAllVertices();
 
   mtlc::Matrix<Graph::EdgeWeightType> GetLeastSpanningTree();
 
-  TsmResult SolveTravelingSalesmanProblem(SalesmanAlgorithms type,
-                                          int rand = 0);
+  TsmResult SolveTravelingSalesmanProblem();
 
  private:
   Graph graph_;
   GraphAlgorithms graph_algoritms_;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_MODEL_H_

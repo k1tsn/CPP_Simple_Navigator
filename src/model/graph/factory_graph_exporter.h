@@ -5,7 +5,7 @@
 
 #include "graph_exporter.h"
 
-namespace graph_cb {
+namespace graph {
 
 class FactoryGraphExporter {
  public:
@@ -22,6 +22,6 @@ class FactoryGraphExporter {
   virtual GraphExporter* Create(ExportType type);
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_FACTORY_GRAPH_EXPORTER

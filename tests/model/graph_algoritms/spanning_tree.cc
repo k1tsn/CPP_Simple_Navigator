@@ -10,7 +10,7 @@
 struct SpanningTreeDataTest {
   std::string filename_;
   size_t size_;
-  std::vector<graph_cb::Graph::EdgeWeightType> edges_;
+  std::vector<graph::Graph::EdgeWeightType> edges_;
 };
 
 class SpanningTreeTest : public testing::TestWithParam<int> {
@@ -809,12 +809,12 @@ TEST_P(SpanningTreeTest, Common) {
   int num_test = this->GetParam();
   SpanningTreeDataTest& data = SpanningTreeTest::test_data_[num_test];
 
-  graph_cb::Graph graph;
+  graph::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  graph_cb::GraphAlgorithms alg;
+  graph::GraphAlgorithms alg;
 
-  mtlc::Matrix<graph_cb::Graph::EdgeWeightType> spanning_tree =
+  mtlc::Matrix<graph::Graph::EdgeWeightType> spanning_tree =
       alg.GetLeastSpanningTree(graph);
 
   EXPECT_EQ(spanning_tree.GetCols(), data.size_);

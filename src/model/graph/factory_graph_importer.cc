@@ -4,9 +4,8 @@
 
 #include "graph_importer.h"
 #include "graph_importer_adjacency_matrix.h"
-#include "graph_importer_dot.h"
 
-namespace graph_cb {
+namespace graph {
 
 FactoryGraphImporter::FactoryGraphImporter() {}
 
@@ -18,10 +17,6 @@ GraphImporter* FactoryGraphImporter::Create(ImportType type) {
       return new GraphImporterAdjacencyMatrix();
       break;
 
-    case kTypeDotFormat:
-      return new GraphImporterDot();
-      break;
-
     default:
       break;
   }
@@ -29,4 +24,4 @@ GraphImporter* FactoryGraphImporter::Create(ImportType type) {
   return nullptr;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

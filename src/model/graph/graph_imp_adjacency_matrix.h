@@ -6,7 +6,7 @@
 #include "graph_imp.h"
 #include "matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 class GraphImpAdjacencyMatrix : public GraphImp {
  public:
@@ -75,6 +75,6 @@ class GraphImpAdjacencyMatrix : public GraphImp {
   std::vector<Vertex> vertex_idx_comparer_;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_IMP_ADJACENCY_MATRIX_H_

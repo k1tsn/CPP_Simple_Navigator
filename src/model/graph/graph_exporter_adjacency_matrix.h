@@ -8,7 +8,7 @@
 #include "graph.h"
 #include "graph_exporter.h"
 
-namespace graph_cb {
+namespace graph {
 
 class GraphExporterAdjacencyMatrix : public GraphExporter {
  public:
@@ -27,6 +27,6 @@ class GraphExporterAdjacencyMatrix : public GraphExporter {
                                   Graph::Vertex vertex);
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
-#endif  // SIMPLE_NAVIGATOR_MODEL_S21_GRAPH_GRAPH_EXPORTER_ADJACENCY_MATRIX_H_
+#endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_EXPORTER_ADJACENCY_MATRIX_H_

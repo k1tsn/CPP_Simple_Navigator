@@ -5,7 +5,7 @@
 #include "graph_imp.h"
 #include "graph_imp_adjacency_matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 FactoryGraphImp::FactoryGraphImp() {}
 
@@ -24,4 +24,4 @@ GraphImp* FactoryGraphImp::Create(GraphImpType type) {
   return nullptr;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

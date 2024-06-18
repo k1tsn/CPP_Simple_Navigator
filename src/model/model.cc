@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace graph_cb {
+namespace graph {
 
 Model::Model() {}
 
@@ -35,8 +35,8 @@ std::vector<Model::Vertex> Model::BreadthFirstSearch(int start_vertex) {
   return graph_algoritms_.BreadthFirstSearch(graph_, start_vertex);
 }
 
-Model::WayBetweenTwo Model::GetShortestPathBetweenVertices(int vertex1,
-                                                           int vertex2) {
+Model::EdgeWeightType Model::GetShortestPathBetweenVertices(int vertex1,
+                                                            int vertex2) {
   return graph_algoritms_.GetShortestPathBetweenVertices(graph_, vertex1,
                                                          vertex2);
 }
@@ -50,9 +50,8 @@ mtlc::Matrix<Graph::EdgeWeightType> Model::GetLeastSpanningTree() {
   return graph_algoritms_.GetLeastSpanningTree(graph_);
 }
 
-GraphAlgorithms::TsmResult Model::SolveTravelingSalesmanProblem(
-    SalesmanAlgorithms type, int rand) {
-  return graph_algoritms_.SolveTravelingSalesmanProblem(graph_, type, rand);
+GraphAlgorithms::TsmResult Model::SolveTravelingSalesmanProblem() {
+  return graph_algoritms_.SolveTravelingSalesmanProblem(graph_);
 }
 
-}  // namespace graph_cb
+}  // namespace graph

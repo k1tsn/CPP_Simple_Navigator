@@ -9,8 +9,8 @@
 
 struct DFSDataTest {
   std::string filename_;
-  graph_cb::Graph::Vertex start_vertex_;
-  std::vector<graph_cb::Graph::Vertex> vertices_;
+  graph::Graph::Vertex start_vertex_;
+  std::vector<graph::Graph::Vertex> vertices_;
 };
 
 class DFSTest : public testing::TestWithParam<int> {
@@ -199,12 +199,12 @@ TEST_P(DFSTest, Common) {
   int num_test = this->GetParam();
   DFSDataTest& data = DFSTest::test_data_[num_test];
 
-  graph_cb::Graph graph;
+  graph::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  graph_cb::GraphAlgorithms alg;
+  graph::GraphAlgorithms alg;
 
-  std::vector<graph_cb::Graph::Vertex> vertices =
+  std::vector<graph::Graph::Vertex> vertices =
       alg.DepthFirstSearch(graph, data.start_vertex_);
 
   EXPECT_EQ(vertices.size(), data.vertices_.size());

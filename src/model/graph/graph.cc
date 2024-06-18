@@ -12,7 +12,7 @@
 #include "graph_imp.h"
 #include "graph_importer.h"
 
-namespace graph_cb {
+namespace graph {
 
 Graph::Graph() { ConstructDefault(); }
 
@@ -166,4 +166,4 @@ Graph::ReturnCode Graph::GraphImporterToReturnCode(
   return kCodeOk;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

@@ -11,7 +11,7 @@
 #include "graph_importer.h"
 #include "string_parser.h"
 
-namespace graph_cb {
+namespace graph {
 
 GraphImporterAdjacencyMatrix::GraphImporterAdjacencyMatrix()
     : GraphImporter() {}
@@ -68,4 +68,4 @@ GraphImporterAdjacencyMatrix::InvalidFileCatch(Graph& graph) {
   return ReturnCode::kCodeInvalidFile;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

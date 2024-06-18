@@ -6,7 +6,7 @@
 #include "graph_exporter_adjacency_matrix.h"
 #include "graph_exporter_dot.h"
 
-namespace graph_cb {
+namespace graph {
 
 FactoryGraphExporter::FactoryGraphExporter() {}
 
@@ -29,4 +29,4 @@ GraphExporter* FactoryGraphExporter::Create(ExportType type) {
   return nullptr;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

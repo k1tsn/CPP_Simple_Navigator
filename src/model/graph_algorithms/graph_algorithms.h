@@ -11,7 +11,7 @@
 #include "../graph/graph.h"
 #include "matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 class GraphAlgorithms {
  public:
@@ -21,7 +21,6 @@ class GraphAlgorithms {
   };
 
   enum GraphAlgoritmsError { kVertexNotFound = -1, kWayNotFound = -2 };
-  enum SalesmanAlgorithms { kAntAlgorithm };
 
   using EdgeWeightType = Graph::EdgeWeightType;
   using Vertex = Graph::Vertex;
@@ -45,8 +44,8 @@ class GraphAlgorithms {
   /// @param vertex2
   /// @return Struct with path and visited_vertices. If there is no way return
   /// -1;
-  WayBetweenTwo GetShortestPathBetweenVertices(const Graph &graph, int vertex1,
-                                               int vertex2) const;
+  EdgeWeightType GetShortestPathBetweenVertices(const Graph &graph, int vertex1,
+                                                int vertex2) const;
 
   /// @brief Finds paths between all pairs of vertices using the Floyd-Warshell
   /// algorithm
@@ -61,15 +60,17 @@ class GraphAlgorithms {
 
   /// @brief Solves the traveling salesman problem using various algorithms. In
   /// this implementation only ant.
-  /// @param type of algorithm
-  /// @param rand optional parameter. if not 0 - disables randomness
   /// @return an empty structure with distance -2 if the problem cannot be
   /// solved
-  TsmResult SolveTravelingSalesmanProblem(const Graph &graph,
-                                          SalesmanAlgorithms type,
-                                          int rand = 0) const;
+  TsmResult SolveTravelingSalesmanProblem(const Graph &graph) const;
 
  private:
+  struct WayWithMinWeight {
+    Vertex start_;
+    Vertex end_;
+    EdgeWeightType edge_;
+  };
+
   struct WeightPheromone {
     EdgeWeightType weight_;
     float pheromone_;
@@ -115,15 +116,6 @@ class GraphAlgorithms {
       const std::set<Vertex> &unvisited_vertices,
       const std::map<Vertex, EdgeWeightType> &vertices) const;
 
-  WayBetweenTwo FindWay(const Graph &graph,
-                        const std::map<Vertex, EdgeWeightType> &vertices,
-                        int vertex1, int vertex2) const;
-
-  Vertex FindPrevVertex(
-      Vertex this_vertex, const std::map<Vertex, EdgeWeightType> &vertex_point,
-      const Vertices &vertices,
-      const mtlc::Matrix<EdgeWeightType> &adjacency_matrix) const;
-
   // --------------------------------------------------------------------------
   //                         Shortest Path Between All
   // --------------------------------------------------------------------------
@@ -137,23 +129,18 @@ class GraphAlgorithms {
   //                              Spanning Tree
   // --------------------------------------------------------------------------
 
-  EdgeWeightType FindVertexWithMinWeight(
+  WayWithMinWeight FindVertexWithMinWeight(
       const Graph &graph, const Vertices &placed_vertices,
-      const std::set<Vertex> &unplaced_vertices, Vertex &start,
-      Vertex &end) const;
+      const std::set<Vertex> &unplaced_vertices) const;
 
   void AddWeigthToSpanningTree(const Graph &graph,
                                mtlc::Matrix<EdgeWeightType> &spanning_tree,
-                               const Vertices &vertices, Vertex start_vertex,
-                               Vertex end_vertex,
-                               EdgeWeightType end_weight) const;
+                               const Vertices &vertices,
+                               const WayWithMinWeight &way) const;
 
   // --------------------------------------------------------------------------
   //                              Solve Salesman
   // --------------------------------------------------------------------------
-
-  TsmResult SolveTravelingSalesmanProblemAnt(const Graph &graph,
-                                             int rand) const;
 
   mtlc::Matrix<WeightPheromone> CreateAdjacencyMatrixWeightPheromone(
       const Graph &graph) const;
@@ -162,11 +149,11 @@ class GraphAlgorithms {
 
   void MakeWay(const Graph &graph, std::vector<Ant>::iterator &ant,
                const mtlc::Matrix<WeightPheromone> &weight_pheromone,
-               size_t count_vertices, int rand) const;
+               size_t count_vertices) const;
 
   VertexProbility FindNextVertex(
       const Graph &graph, Vertex start, std::vector<Ant>::iterator &ant,
-      const mtlc::Matrix<WeightPheromone> &weight_pheromone, int rand) const;
+      const mtlc::Matrix<WeightPheromone> &weight_pheromone) const;
 
   std::vector<VertexProbility> GetAntsWishes(
       const Graph &graph, Vertex start, std::vector<Ant>::iterator &ant,
@@ -208,6 +195,6 @@ class GraphAlgorithms {
   const static inline float kK_ = 7.0;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_ALGORITHMS_GRAPH_ALGORITHMS_H_

@@ -9,8 +9,8 @@
 
 struct BFSDataTest {
   std::string filename_;
-  graph_cb::Graph::Vertex start_vertex_;
-  std::vector<graph_cb::Graph::Vertex> vertices_;
+  graph::Graph::Vertex start_vertex_;
+  std::vector<graph::Graph::Vertex> vertices_;
 };
 
 class BFSTest : public testing::TestWithParam<int> {
@@ -199,12 +199,12 @@ TEST_P(BFSTest, Common) {
   int num_test = this->GetParam();
   BFSDataTest& data = BFSTest::test_data_[num_test];
 
-  graph_cb::Graph graph;
+  graph::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  graph_cb::GraphAlgorithms alg;
+  graph::GraphAlgorithms alg;
 
-  std::vector<graph_cb::Graph::Vertex> vertices =
+  std::vector<graph::Graph::Vertex> vertices =
       alg.BreadthFirstSearch(graph, data.start_vertex_);
 
   EXPECT_EQ(vertices.size(), data.vertices_.size());

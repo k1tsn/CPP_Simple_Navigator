@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace graph_cb {
+namespace graph {
 
 class Graph;
 
@@ -26,6 +26,6 @@ class GraphExporter {
                             const std::string& filename) = 0;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_EXPORTER_H_

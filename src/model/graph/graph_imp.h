@@ -7,7 +7,7 @@
 
 #include "graph_edge.h"
 
-namespace graph_cb {
+namespace graph {
 
 class GraphImp {
  public:
@@ -67,6 +67,6 @@ class GraphImp {
   virtual void Clear() = 0;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_IMP_H_

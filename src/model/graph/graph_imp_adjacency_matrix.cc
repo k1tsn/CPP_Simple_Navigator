@@ -2,7 +2,7 @@
 
 #include "graph_imp_adjacency_matrix.h"
 
-namespace graph_cb {
+namespace graph {
 
 GraphImpAdjacencyMatrix::GraphImpAdjacencyMatrix() {}
 
@@ -119,4 +119,4 @@ bool GraphImpAdjacencyMatrix::CheckEdgeExists(Vertex vertex,
   return true;
 }
 
-}  // namespace graph_cb
+}  // namespace graph

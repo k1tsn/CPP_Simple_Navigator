@@ -8,9 +8,19 @@ RELEASE_BUILD_TYPE=-DCMAKE_BUILD_TYPE=Release
 GCOV_NO_REPORT_FLAGS=-DGRAPH_COVERAGE_FLAGS:STRING=""
 GCOV_NO_REPORT_LIBS=-DGRAPH_COVERAGE_LIBS:STRING=""
 
-REPORT_BUILD= $(DEBUG_BUILD_TYPE) $(GCOV_REPORT_FLAGS) $(GCOV_REPORT_LIBS)
-STANDART_BUILD= $(DEBUG_BUILD_TYPE) $(GCOV_NO_REPORT_FLAGS) $(GCOV_NO_REPORT_LIBS)
+UNAME := $(shell uname -s)
+ifeq ($(UNAME), Darwin)
+CXX_APP=-DCMAKE_CXX_COMPILER=/usr/bin/clang++
+CXX_TEST=-DCMAKE_CXX_COMPILER=/usr/local/bin/clang++
+endif
+ifeq ($(UNAME), Linux)
+CXX_APP=-DCMAKE_CXX_COMPILER=/bin/g++
+CXX_TEST=-DCMAKE_CXX_COMPILER=/bin/g++
+endif
 
+REPORT_BUILD= $(DEBUG_BUILD_TYPE) $(GCOV_REPORT_FLAGS) $(GCOV_REPORT_LIBS) $(CXX_TEST)
+TESTS_BUILD= $(DEBUG_BUILD_TYPE) $(GCOV_REPORT_FLAGS) $(GCOV_REPORT_LIBS) $(CXX_TEST)
+STANDART_BUILD= $(DEBUG_BUILD_TYPE) $(GCOV_NO_REPORT_FLAGS) $(GCOV_NO_REPORT_LIBS) $(CXX_APP)
 
 PATH_BUILD=build
 PATH_REPORT=report
@@ -21,7 +31,7 @@ PATH_DOXY=doxy
 all: install 
 
 install: init_submodules
-	cmake -B $(PATH_BUILD)
+	cmake -B $(PATH_BUILD) $(STANDART_BUILD) 
 	cmake --build $(PATH_BUILD) --target all 
 
 run:
@@ -30,8 +40,10 @@ run:
 uninstall:
 	rm -rf $(PATH_BUILD)
 
-clean:
+clean: uninstall
+	rm -rf $(PATH_DOXY)/documentation
 	rm -rf $(PATH_REPORT)
+	cmake --build $(PATH_BUILD) --target clean
 
 rebuild: clean all
 
@@ -53,7 +65,7 @@ init_submodules:
 	git submodule update
 
 build_test: init_submodules
-	cmake -B $(PATH_BUILD) $(STANDART_BUILD) 
+	cmake -B $(PATH_BUILD) $(TESTS_BUILD) 
 	cmake --build $(PATH_BUILD) --target simple_navigator_test
 
 build_test_cov: init_submodules

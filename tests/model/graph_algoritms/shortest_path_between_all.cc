@@ -10,7 +10,7 @@
 struct ShortestPathBetweenAllDataTest {
   std::string filename_;
   size_t matrix_size_;
-  std::vector<graph_cb::Graph::EdgeWeightType> edges_;
+  std::vector<graph::Graph::EdgeWeightType> edges_;
 };
 
 class ShortestPathBetweenAllTest : public testing::TestWithParam<int> {
@@ -306,12 +306,12 @@ TEST_P(ShortestPathBetweenAllTest, Common) {
   ShortestPathBetweenAllDataTest& data =
       ShortestPathBetweenAllTest::test_data_[num_test];
 
-  graph_cb::Graph graph;
+  graph::Graph graph;
   graph.LoadGraphFromFile(data.filename_);
 
-  graph_cb::GraphAlgorithms alg;
+  graph::GraphAlgorithms alg;
 
-  mtlc::Matrix<graph_cb::Graph::EdgeWeightType> adjancicy_matrix =
+  mtlc::Matrix<graph::Graph::EdgeWeightType> adjancicy_matrix =
       alg.GetShortestPathsBetweenAllVertices(graph);
 
   EXPECT_EQ(adjancicy_matrix.GetCols(), data.matrix_size_);

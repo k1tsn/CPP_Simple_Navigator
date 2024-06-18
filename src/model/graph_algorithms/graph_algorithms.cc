@@ -12,7 +12,7 @@
 
 #include "../graph/graph.h"
 
-namespace graph_cb {
+namespace graph {
 
 GraphAlgorithms::GraphAlgorithms() {}
 
@@ -68,10 +68,10 @@ std::vector<GraphAlgorithms::Vertex> GraphAlgorithms::BreadthFirstSearch(
   return visited_vertices;
 }
 
-GraphAlgorithms::WayBetweenTwo GraphAlgorithms::GetShortestPathBetweenVertices(
+GraphAlgorithms::EdgeWeightType GraphAlgorithms::GetShortestPathBetweenVertices(
     const Graph &graph, int vertex1, int vertex2) const {
   if (!HasGraphVertices(graph, vertex1, vertex2))
-    return {{}, static_cast<Vertex>(kVertexNotFound)};
+    return static_cast<Vertex>(kVertexNotFound);
 
   std::map<Vertex, EdgeWeightType> vertices = {{vertex1, 0}};
   PushVertex(vertices, graph, vertex1);
@@ -88,10 +88,10 @@ GraphAlgorithms::WayBetweenTwo GraphAlgorithms::GetShortestPathBetweenVertices(
     Graph::EdgeWeightType edge_min = iter_to_min->second;
     Graph::Edges edges = graph.GetEdges(min);
 
-    for (size_t j = 0; j < edges.size(); ++j) {
-      Vertex v = edges[j].GetDistVertex();
+    for (const auto &edge : edges) {
+      Vertex v = edge.GetDistVertex();
       auto next_v = vertices.find(v);
-      EdgeWeightType w = edges[j].GetWeight() + edge_min;
+      EdgeWeightType w = edge.GetWeight() + edge_min;
       if (w < next_v->second) next_v->second = w;
     }
 
@@ -99,7 +99,9 @@ GraphAlgorithms::WayBetweenTwo GraphAlgorithms::GetShortestPathBetweenVertices(
     if (!IsThereVertex(min)) break;
   }
 
-  return FindWay(graph, vertices, vertex1, vertex2);
+  if (IsThereNoWay(vertices.find(vertex2)->second))
+    return static_cast<Vertex>(kWayNotFound);
+  return vertices.find(vertex2)->second;
 }
 
 mtlc::Matrix<GraphAlgorithms::EdgeWeightType>
@@ -142,39 +144,25 @@ GraphAlgorithms::GetLeastSpanningTree(const Graph &graph) const {
   mtlc::Matrix<EdgeWeightType> spanning_tree(vertices.size(), vertices.size());
 
   bool is_linked_graph = true;
+  WayWithMinWeight way;
 
   while (!unplaced_vertices.empty()) {
-    Vertex start;
-    Vertex end;
-    EdgeWeightType edge = FindVertexWithMinWeight(
-        graph, placed_vertices, unplaced_vertices, start, end);
+    way = FindVertexWithMinWeight(graph, placed_vertices, unplaced_vertices);
 
-    if (!IsThereVertex(start)) {
+    if (!IsThereVertex(way.start_)) {
       is_linked_graph = false;
       break;
     }
 
-    unplaced_vertices.erase(unplaced_vertices.find(end));
+    unplaced_vertices.erase(unplaced_vertices.find(way.end_));
 
-    placed_vertices.push_back(end);
+    placed_vertices.push_back(way.end_);
 
-    AddWeigthToSpanningTree(graph, spanning_tree, vertices, start, end, edge);
+    AddWeigthToSpanningTree(graph, spanning_tree, vertices, way);
   }
 
   if (!is_linked_graph) return mtlc::Matrix<EdgeWeightType>(0, 0);
   return spanning_tree;
 }
 
-GraphAlgorithms::TsmResult GraphAlgorithms::SolveTravelingSalesmanProblem(
-    const Graph &graph, SalesmanAlgorithms type, int rand) const {
-  switch (type) {
-    case SalesmanAlgorithms::kAntAlgorithm:
-      return SolveTravelingSalesmanProblemAnt(graph, rand);
-
-    default:
-      break;
-  }
-  return TsmResult{};
-}
-
-}  // namespace graph_cb
+}  // namespace graph

@@ -4,17 +4,15 @@
 #define SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_H_
 
 #include <string>
-#include <vector>
 
 #include "factory_graph_exporter.h"
 #include "factory_graph_imp.h"
 #include "factory_graph_importer.h"
 #include "graph_exporter.h"
 #include "graph_imp.h"
-#include "matrix.h"
-#include "token.h"
+#include "graph_importer.h"
 
-namespace graph_cb {
+namespace graph {
 
 class Graph {
  public:
@@ -122,6 +120,6 @@ class Graph {
   GraphImp* graph_imp_;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_H_

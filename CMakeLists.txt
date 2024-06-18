@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(simple_navigator VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
 set(GRAPH_TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(GRAPH_3D_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3d_party)
 set(GRAPH_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -37,6 +44,12 @@ set(SOURCE_EXE
 )	
 
 set(SOURCE_GRAPH
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/exporter.cc
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/exporter.h
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/graph.cc
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/graph.h
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/importer.cc
+  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_dot/importer.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/factory_graph_exporter.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/factory_graph_exporter.cc
   ${GRAPH_MODEL_SOURCE_DIR}/graph/factory_graph_importer.h
@@ -52,8 +65,6 @@ set(SOURCE_GRAPH
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_exporter.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_importer_adjacency_matrix.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_importer_adjacency_matrix.cc
-  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_importer_dot.h
-  ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_importer_dot.cc
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_importer.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_imp_adjacency_matrix.h
   ${GRAPH_MODEL_SOURCE_DIR}/graph/graph_imp_adjacency_matrix.cc
@@ -81,8 +92,6 @@ set(SOURCE_VIEW
   ${GRAPH_VIEW_SOURCE_DIR}/view.cc
   ${GRAPH_VIEW_SOURCE_DIR}/view.h
 )
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 add_library(graph STATIC ${SOURCE_GRAPH})
 

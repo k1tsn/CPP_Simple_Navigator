@@ -1,6 +1,6 @@
 #include "controller_default.h"
 
-namespace graph_cb {
+namespace graph {
 
 ControllerDefault::ControllerDefault(Model* model) { model_ = model; }
 
@@ -21,7 +21,7 @@ std::vector<Controller::Vertex> ControllerDefault::BreadthFirstSearch(
   return model_->BreadthFirstSearch(start_vertex);
 }
 
-Controller::WayBetweenTwo ControllerDefault::GetShortestPathBetweenVertices(
+Controller::EdgeWeightType ControllerDefault::GetShortestPathBetweenVertices(
     int vertex1, int vertex2) {
   return model_->GetShortestPathBetweenVertices(vertex1, vertex2);
 }
@@ -35,9 +35,8 @@ mtlc::Matrix<Graph::EdgeWeightType> ControllerDefault::GetLeastSpanningTree() {
   return model_->GetLeastSpanningTree();
 }
 
-Model::TsmResult ControllerDefault::SolveTravelingSalesmanProblem(
-    SalesmanAlgorithms type) {
-  return model_->SolveTravelingSalesmanProblem(type);
+Model::TsmResult ControllerDefault::SolveTravelingSalesmanProblem() {
+  return model_->SolveTravelingSalesmanProblem();
 }
 
-}  // namespace graph_cb
+}  // namespace graph

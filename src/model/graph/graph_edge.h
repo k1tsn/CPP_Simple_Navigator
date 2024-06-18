@@ -3,7 +3,7 @@
 #ifndef SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_EDGE_H_
 #define SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_EDGE_H_
 
-namespace graph_cb {
+namespace graph {
 
 class GraphEdge {
  public:
@@ -29,6 +29,6 @@ class GraphEdge {
   Vertex dist_vertex_;
 };
 
-}  // namespace graph_cb
+}  // namespace graph
 
 #endif  // SIMPLE_NAVIGATOR_MODEL_GRAPH_GRAPH_EDGE_H_
